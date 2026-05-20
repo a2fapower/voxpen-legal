@@ -1,0 +1,3 @@
+# Local dev artifacts: typeless reference screenshots, Playwright node_modules,
+# skeleton iterations, headless screenshots. 不入 git, 保留本地参考。
+_test_typeless/
