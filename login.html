@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>登录 VoxPen</title>
+  <meta name="description" content="正在登录 VoxPen…">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Helvetica Neue", sans-serif; -webkit-font-smoothing: antialiased; }
+    @keyframes pulse-soft { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .pulse-soft { animation: pulse-soft 1.8s ease-in-out infinite; }
+    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .spin-slow { animation: spin-slow 1.2s linear infinite; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 min-h-screen flex flex-col">
+  <section class="flex-1 flex flex-col items-center justify-center px-6 text-center">
+    <div class="max-w-md w-full">
+      <!-- Brand: mark (1:1 三端 App 内 VPLogo, viewBox 24, stroke 2.6) + Georgia serif wordmark -->
+      <div class="flex items-center justify-center gap-3 mb-8 text-gray-900">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 md:w-12 md:h-12" aria-hidden="true">
+          <polyline points="3,4.5 10,19.5 12.5,14" />
+          <polyline points="12.5,14 17,4.5" opacity="0.5" />
+          <circle cx="20.5" cy="5" r="2" fill="currentColor" stroke="none" />
+        </svg>
+        <span style="font-family: Georgia, 'Times New Roman', Cambria, serif;" class="text-5xl md:text-6xl font-bold tracking-tight">VoxPen</span>
+      </div>
+
+      <!-- 默认状态: 正在跳转 -->
+      <div id="state-opening" class="space-y-6">
+        <div class="flex justify-center">
+          <svg class="spin-slow text-gray-400" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+          </svg>
+        </div>
+        <p class="text-lg text-gray-600 pulse-soft">正在打开 VoxPen 应用…</p>
+      </div>
+
+      <!-- 3 秒后 fallback: 手动打开 + 下载入口 -->
+      <div id="state-manual" class="space-y-8 hidden">
+        <div class="space-y-3">
+          <p class="text-lg text-gray-700">VoxPen 没有自动打开?</p>
+          <button id="manual-open" class="bg-black text-white px-8 py-4 rounded-full font-medium hover:bg-gray-800 transition">
+            手动打开 VoxPen
+          </button>
+        </div>
+        <div class="pt-6 border-t border-gray-200">
+          <p class="text-sm text-gray-500 mb-4">还没安装 VoxPen?</p>
+          <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center text-sm">
+            <a href="https://testflight.apple.com/join/y9fRRyve" class="text-gray-700 hover:text-black underline-offset-2 hover:underline">iOS · TestFlight</a>
+            <span class="hidden sm:inline text-gray-300">·</span>
+            <a href="https://voxpen.myorgn.cn/VoxPen-0.1.0.dmg" class="text-gray-700 hover:text-black underline-offset-2 hover:underline">macOS · v0.1.0</a>
+            <span class="hidden sm:inline text-gray-300">·</span>
+            <span class="text-gray-400">Windows · 即将开放</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 直接访问(无 token): 引导 -->
+      <div id="state-no-token" class="space-y-6 hidden">
+        <p class="text-lg text-gray-700">这是 VoxPen 登录回调页。</p>
+        <div class="space-y-3 text-sm text-gray-500">
+          <p>请在邮件里点击登录链接完成登录。</p>
+          <p>想了解 VoxPen? 访问 <a href="/" class="text-gray-900 underline-offset-2 hover:underline">voxpen.cn</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 px-6 text-center text-sm text-gray-500">
+    <div class="space-x-6 mb-4">
+      <a href="/privacy.html" class="hover:text-gray-900">隐私政策</a>
+      <a href="/terms.html" class="hover:text-gray-900">服务条款</a>
+      <a href="mailto:a2fapower@gmail.com" class="hover:text-gray-900">联系</a>
+    </div>
+    <p>© 2026 VoxPen</p>
+  </footer>
+
+  <script>
+    (function() {
+      // Supabase magic link redirect 把 access_token/refresh_token/expires_in/token_type
+      // 放在 URL hash fragment (不进 server access log, client-side 提取)。
+      var hash = window.location.hash || '';
+      var hasToken = hash.indexOf('access_token=') !== -1;
+
+      function show(id) {
+        var ids = ['state-opening', 'state-manual', 'state-no-token'];
+        ids.forEach(function(x) {
+          var el = document.getElementById(x);
+          if (!el) return;
+          if (x === id) el.classList.remove('hidden');
+          else el.classList.add('hidden');
+        });
+      }
+
+      if (!hasToken) {
+        // 用户直接访问 voxpen.cn/login, 没有 token: 显示引导
+        show('state-no-token');
+        return;
+      }
+
+      // 有 token: 立即跳 deep link
+      // voxpen-win / voxpen-mac / voxpen-ios 都注册了 voxpen:// custom scheme
+      // (Win: electron-builder protocols 段; mac/ios: Info.plist CFBundleURLTypes)
+      var deepLink = 'voxpen://auth-callback' + hash;
+      // 不打印完整 token (即便 console 只在 user 自己浏览器, 防截图泄露)
+      try { console.log('[voxpen.cn/login] redirecting to voxpen://auth-callback#<token>'); } catch (e) {}
+      window.location.href = deepLink;
+
+      // 3 秒后还在这页 = 浏览器拦了 custom scheme 或 app 没装, fallback
+      setTimeout(function() {
+        show('state-manual');
+        var btn = document.getElementById('manual-open');
+        if (btn) {
+          btn.addEventListener('click', function() {
+            window.location.href = deepLink;
+          });
+        }
+      }, 3000);
+    })();
+  </script>
+</body>
+</html>

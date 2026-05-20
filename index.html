@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>VoxPen — 极简语音输入</title>
   <meta name="description" content="按住说话,AI 润色,松手成文。专注的语音输入工具。支持 iOS / Mac。">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Helvetica Neue", sans-serif; -webkit-font-smoothing: antialiased; }
@@ -13,7 +14,15 @@
 <body class="bg-white text-gray-900">
   <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
     <div class="max-w-2xl">
-      <h1 class="text-6xl md:text-7xl font-bold tracking-tight mb-6">VoxPen</h1>
+      <!-- Brand: mark (1:1 三端 App 内 VPLogo, viewBox 24, stroke 2.6) + Georgia serif wordmark -->
+      <div class="flex items-center justify-center gap-4 mb-6 text-gray-900">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 md:w-16 md:h-16" aria-hidden="true">
+          <polyline points="3,4.5 10,19.5 12.5,14" />
+          <polyline points="12.5,14 17,4.5" opacity="0.5" />
+          <circle cx="20.5" cy="5" r="2" fill="currentColor" stroke="none" />
+        </svg>
+        <span style="font-family: Georgia, 'Times New Roman', Cambria, serif;" class="text-6xl md:text-7xl font-bold tracking-tight">VoxPen</span>
+      </div>
       <p class="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed">
         按住说话,AI 润色,松手成文。<br>
         专注的语音输入工具。

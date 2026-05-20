@@ -1,0 +1,16 @@
+<!--
+  VoxPen brand mark.
+
+  1:1 字节级对齐三端 App 内 VPLogo:
+  - voxpen-mac/Sources/VoxPenMac/UI/Theme/VPLogo.swift
+  - voxpen-ios/VoxPen/UI/Primitives/VPLogo.swift
+  - voxpen-win/src/renderer/components/VPLogo.tsx
+
+  viewBox 24x24 / stroke 2.6 / 主左臂 full opacity / 右臂 opacity 0.5 / 圆点 (20.5, 5) r=2.
+  用 currentColor, 配合 CSS color 控制色, dark mode 友好。
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="3,4.5 10,19.5 12.5,14" />
+  <polyline points="12.5,14 17,4.5" opacity="0.5" />
+  <circle cx="20.5" cy="5" r="2" fill="currentColor" stroke="none" />
+</svg>
