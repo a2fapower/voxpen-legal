@@ -1,36 +1,39 @@
-# STATUS
+# voxpen-legal · STATUS(归档)
 
-## 进行中
+> [!warning] **本仓库已于 2026-05-23 废弃**。详见 [README.md](./README.md)。
+> 主页 + 法务 + 营销迁移至 [voxpen-web](https://github.com/a2fapower/voxpen-web)。
 
-无
+## 当前状态
 
-## 下次开工第一步
+**归档,只读**。本仓不再接受 PR 或常规更新。
 
-**[#3 自媒体物料](https://github.com/a2fapower/voxpen-legal/issues/3) 手工执行**(Agent 做不了):
-- 按 `marketing/demo-script.md` 录 30s iOS 键盘 demo 视频
-- 按 `marketing/README.md` 优先级清单截图(P0:App Store 截图 5 张 + 微信公众号封面 / P1:Mac 截图 3 张 + 跨端对比图)
-- 录制工具:iPhone 系统屏幕录制(控制中心)+ 剪映自动字幕
+唯一例外:
 
-完成后:
-- [#4](https://github.com/a2fapower/voxpen-legal/issues/4) 落地页升级(截图 + demo + Mac 下载入口)
-- [#5](https://github.com/a2fapower/voxpen-legal/issues/5) 定价 / 试用策略对外口径
-- [#1](https://github.com/a2fapower/voxpen-legal/issues/1) favicon + OG image / Twitter card meta
+- `asc-privacy-questionnaire.md` — App Store 提审前可以更新对齐生产(目前仍是这里维护,因为提审材料跟公开主页不同,不适合放 voxpen-web)
 
-## 最近完成
+## 历史完成(已不再活跃)
 
-- 2026-05-12 **#2 隐私政策对齐 SIWA + #3 物料模板**(PR #8 已 merge)
-  - `privacy.md` 完整重写:对齐 SIWA 后实际数据收集(邮箱 + Apple sub + 热词云端),新增用户权利章节、第三方服务章节(阿里云百炼 + Apple SIWA)
-  - `asc-privacy-questionnaire.md` 新增:苹果隐私问卷正确答案(Email/User ID/Audio Data/Hotwords 四项 Linked to User)
-  - `marketing/README.md` 截图清单 + 文件夹结构 + 优先级分级
-  - `marketing/demo-script.md` 30s iOS 键盘 demo 分镜
-  - `marketing/social-launch-templates.md` 4 平台首发文案(小红书 / Twitter / 即刻 / B 站)
-  - closes #2,refs #3(模板落地,实际素材待手工)
+- 2026-05-12 **#2 隐私政策对齐 SIWA**(PR #8 已 merge)
+  - 当时的 `privacy.md` 重写,加 SIWA / 邮箱 / 热词云端三块。**该版本现已过时**,新版在 voxpen-web/privacy.html(2026-05-23 重写加了邮箱 OTP / Supabase / MetricKit / 三端等)
+  - `asc-privacy-questionnaire.md` 新增
+  - `marketing/` 三份模板新增
 
-## 留给后续
+## 待办 issue(转移指引)
 
-- [#3](https://github.com/a2fapower/voxpen-legal/issues/3) P0 实际视频 + 截图素材(手工)
-- [#4](https://github.com/a2fapower/voxpen-legal/issues/4) P1 落地页升级
-- [#5](https://github.com/a2fapower/voxpen-legal/issues/5) P2 定价对外口径
-- [#6](https://github.com/a2fapower/voxpen-legal/issues/6) P3 voxpen.cn 域名决策(1-2 月后评估)
-- [#7](https://github.com/a2fapower/voxpen-legal/issues/7) P3 客服 SOP
-- 隐私政策待补:MetricKit 章节(server #50 + ios #40 + mac #39 已上线,需说明 MetricKit 是 Apple 系统 API,仅用户主动上传)
+废弃前留下的 open issue:
+
+| Issue | 处理 |
+|---|---|
+| [#1](https://github.com/a2fapower/voxpen-legal/issues/1) favicon + OG image | 已在 voxpen-web 部分覆盖, 转 voxpen-web 跟进 |
+| [#3](https://github.com/a2fapower/voxpen-legal/issues/3) P0 自媒体物料(手工) | 转 voxpen-web 跟进 |
+| [#4](https://github.com/a2fapower/voxpen-legal/issues/4) 落地页升级 | 转 voxpen-web 跟进 |
+| [#5](https://github.com/a2fapower/voxpen-legal/issues/5) 定价 / 试用对外口径 | 转 voxpen-web 跟进 |
+| [#6](https://github.com/a2fapower/voxpen-legal/issues/6) voxpen.cn 域名决策 | **已落实**(2026-05-19 备案通过 + 2026-05-22 邮件链路 + 2026-05-23 主页迁移),可关闭 |
+| [#7](https://github.com/a2fapower/voxpen-legal/issues/7) 客服 SOP | 转 voxpen-web 跟进或继续作产品决策类 |
+| [#9](https://github.com/a2fapower/voxpen-legal/issues/9) terms.md 重写 | **已在 voxpen-web/terms.html 完成**,可关闭 |
+| [#10](https://github.com/a2fapower/voxpen-legal/issues/10) sitemap.xml / robots.txt | **已在 voxpen-web 完成**,可关闭 |
+| [#11](https://github.com/a2fapower/voxpen-legal/issues/11) privacy.md 补充手机号 + 微信 + MetricKit | 部分完成(MetricKit + Supabase 已加),手机号 / 微信等启用后再补 voxpen-web/privacy.html |
+
+## 不再需要的内容(已删除或将删除)
+
+- `_test_typeless/` 调研截图 + JS 脚本(已删除)
